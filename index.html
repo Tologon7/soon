@@ -6,75 +6,78 @@
   <title>Coming soon</title>
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
+  html, body {
+    height: 100%;
+    overflow: hidden; /* ← УБИРАЕТ ЛЮБОЙ СКРОЛЛ */
+  }
+
+  body {
+    height: 100dvh; /* ← правильная высота на мобильных */
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    padding-left: clamp(24px, 8vw, 140px);
+
+    background: url("bg.png") center / cover no-repeat;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+
+  /* затемнение + лёгкий blur */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.28);
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(2px);
+    pointer-events: none;
+  }
+
+  .text {
+    position: relative;
+    color: white;
+
+    font-size: clamp(40px, 7vw, 96px);
+    letter-spacing: clamp(4px, 0.8vw, 10px);
+    font-weight: 300;
+    line-height: 1.05;
+
+    opacity: 0;
+    transform: translateY(24px);
+    animation: fade 1.8s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.5s;
+
+    user-select: text;
+  }
+
+  @keyframes fade {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* мобильная идеальная композиция */
+  @media (max-width: 600px) {
     body {
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-
-      /* позиция как на референсе */
-      padding-left: clamp(24px, 8vw, 140px);
-
-      background: url("bg.png") center/cover no-repeat;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      overflow: hidden;
-    }
-
-    /* затемнение + очень лёгкий blur как у Apple */
-    body::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.28);
-      backdrop-filter: blur(0.5px);
-      -webkit-backdrop-filter: blur(2px);
-      pointer-events: none;
+      align-items: flex-end;
+      padding: 0 24px 10dvh;
     }
 
     .text {
-      position: relative;
-      color: white;
-
-      /* адаптивный размер как у Apple */
-      font-size: clamp(40px, 7vw, 96px);
-      letter-spacing: clamp(4px, 0.8vw, 10px);
-      font-weight: 300;
-      line-height: 1.05;
-
-      /* плавное появление */
-      opacity: 0;
-      transform: translateY(24px);
-      animation: fade 1.8s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.5s;
-
-      user-select: text;
+      font-size: clamp(34px, 10vw, 56px);
+      letter-spacing: 6px;
     }
+  }
+</style>
 
-    @keyframes fade {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* мобильная композиция как у Apple */
-    @media (max-width: 600px) {
-      body {
-        align-items: flex-end;
-        padding: 0 24px 12vh;
-      }
-
-      .text {
-        font-size: clamp(34px, 10vw, 56px);
-        letter-spacing: 6px;
-      }
-    }
-  </style>
 </head>
 
 <body oncontextmenu="return false">
